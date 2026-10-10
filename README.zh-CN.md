@@ -2,9 +2,9 @@
 
 **通过统一接口发现实验室能力、提交任务并获取执行反馈。**
 
-[English](README.md) · [用户指南](docs/zh-CN/README.md) · [设计说明](docs/zh-CN/design.md) · [协议参考](docs/zh-CN/device-access.md)
+[English](README.md) · [快速开始](docs/zh-CN/getting-started.md) · [应用接入](docs/zh-CN/clients.md) · [设备接入](docs/zh-CN/backends.md) · [完整文档](docs/zh-CN/README.md)
 
-SCP-Lab 是 [Science Context Protocol（SCP）](https://github.com/InternScience/scp) 面向自主实验室的扩展。它定义了描述和调用设施能力的共同接口：实验设施通过接口说明支持的操作、接受的参数，以及如何报告执行状态和结果。科学智能体通过 SCP-Lab 发现实验能力并提交任务，设施侧的执行后端负责控制设备或岛台执行实验操作，并通过 SCP-Lab 将执行状态和实验结果返回智能体。智能体基于反馈优化实验方案，形成干湿闭环。
+SCP-Lab 是 [Science Context Protocol（SCP）](https://github.com/InternScience/scp) 面向自主实验室的扩展。科学智能体通过统一接口发现实验能力、提交任务，设施侧的后端负责控制设备或岛台执行操作，并返回执行状态与实验结果。智能体基于这些反馈优化后续实验方案。
 
 ![SCP-Lab 概览：通过统一接口连接科学智能体、实验设备与实验依据。](docs/assets/scp-lab-teaser.png)
 

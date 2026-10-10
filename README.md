@@ -2,9 +2,9 @@
 
 **Discover laboratory capabilities, submit tasks, and interpret execution feedback through a shared interface.**
 
-[简体中文](README.zh-CN.md) · [User guide](docs/README.md) · [Design](docs/design.md) · [Protocol reference](docs/device-access.md)
+[简体中文](README.zh-CN.md) · [Quick start](docs/getting-started.md) · [Client integration](docs/clients.md) · [Device integration](docs/backends.md) · [Documentation](docs/README.md)
 
-SCP-Lab is an extension of the [Science Context Protocol (SCP)](https://github.com/InternScience/scp) for autonomous laboratories. It defines a shared interface for describing and invoking facility capabilities: facilities specify their supported operations, accepted parameters, and how they report execution status and results. Scientific agents discover experimental capabilities and submit tasks through SCP-Lab. Execution backends at each facility control devices or integrated workstations to carry out experimental operations and return execution status and experimental results to the agents through SCP-Lab. Agents use this feedback to refine their experimental plans, closing the loop between computational planning and physical experimentation.
+SCP-Lab extends the [Science Context Protocol (SCP)](https://github.com/InternScience/scp) for autonomous laboratories. Scientific agents discover experimental capabilities and submit tasks through a shared interface; facility backends control devices or integrated workstations and return execution status and experimental results. Agents use this feedback to refine subsequent experimental plans.
 
 ![SCP-Lab overview: a shared interface connects scientific agents, laboratory instruments, and experimental evidence.](docs/assets/scp-lab-teaser.png)
 
