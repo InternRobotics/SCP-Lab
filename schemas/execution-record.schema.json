@@ -1,0 +1,233 @@
+{
+  "$defs": {
+    "CompletionEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "default": "none",
+          "title": "Kind",
+          "type": "string"
+        },
+        "physical_completion_verified": {
+          "default": false,
+          "title": "Physical Completion Verified",
+          "type": "boolean"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        }
+      },
+      "title": "CompletionEvidence",
+      "type": "object"
+    },
+    "ExecutionError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "ExecutionError",
+      "type": "object"
+    },
+    "ExecutionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "device_id": {
+          "minLength": 1,
+          "title": "Device Id",
+          "type": "string"
+        },
+        "capability_id": {
+          "minLength": 1,
+          "title": "Capability Id",
+          "type": "string"
+        },
+        "arguments": {
+          "additionalProperties": true,
+          "title": "Arguments",
+          "type": "object"
+        },
+        "idempotency_key": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Idempotency Key"
+        },
+        "expected_descriptor_revision": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Descriptor Revision"
+        }
+      },
+      "required": [
+        "device_id",
+        "capability_id",
+        "arguments"
+      ],
+      "title": "ExecutionRequest",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "scp-lab.execution.v0.1",
+      "default": "scp-lab.execution.v0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "request": {
+      "$ref": "#/$defs/ExecutionRequest"
+    },
+    "descriptor_revision": {
+      "title": "Descriptor Revision",
+      "type": "string"
+    },
+    "capability_version": {
+      "title": "Capability Version",
+      "type": "string"
+    },
+    "effective_arguments": {
+      "additionalProperties": true,
+      "title": "Effective Arguments",
+      "type": "object"
+    },
+    "backend_id": {
+      "title": "Backend Id",
+      "type": "string"
+    },
+    "execution_mode": {
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "physical_execution": {
+      "title": "Physical Execution",
+      "type": "boolean"
+    },
+    "status": {
+      "default": "accepted",
+      "enum": [
+        "accepted",
+        "running",
+        "cancel_requested",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "unknown"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "submitted_at": {
+      "title": "Submitted At",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Started At"
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Finished At"
+    },
+    "progress": {
+      "additionalProperties": true,
+      "title": "Progress",
+      "type": "object"
+    },
+    "result": {
+      "additionalProperties": true,
+      "title": "Result",
+      "type": "object"
+    },
+    "completion_evidence": {
+      "$ref": "#/$defs/CompletionEvidence"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExecutionError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "device_released": {
+      "default": false,
+      "title": "Device Released",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "run_id",
+    "request",
+    "descriptor_revision",
+    "capability_version",
+    "effective_arguments",
+    "backend_id",
+    "execution_mode",
+    "physical_execution",
+    "submitted_at",
+    "updated_at"
+  ],
+  "title": "ExecutionRecord",
+  "type": "object"
+}

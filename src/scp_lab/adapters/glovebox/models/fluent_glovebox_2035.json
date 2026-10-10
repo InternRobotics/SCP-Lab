@@ -1,0 +1,316 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "fluent_glovebox_2035",
+  "device_class": "glovebox",
+  "display_name": "Fluent Low-Humidity Glovebox",
+  "capabilities": [
+    {
+      "capability_id": "fluent_glovebox_2035.controlled_environment",
+      "version": "0.1.0",
+      "description": "Run a glovebox method. Provide at least one environmental condition, with each comparator paired with its value.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "method_name": {
+                "type": "string",
+                "description": "Name of the method to run."
+              },
+              "timeout": {
+                "type": "number",
+                "description": "Timeout in seconds.",
+                "minimum": 0,
+                "x-scp-unit": "s"
+              },
+              "pressure_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "pressure": {
+                "type": "integer",
+                "description": "Chamber pressure in mbar.",
+                "minimum": 0,
+                "x-scp-unit": "mbar"
+              },
+              "oxygen_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "oxygen": {
+                "type": "integer",
+                "description": "Oxygen content in ppm.",
+                "minimum": 0,
+                "maximum": 100,
+                "x-scp-unit": "ppm"
+              },
+              "water_content_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "water_content": {
+                "type": "number",
+                "description": "Water content in ppm.",
+                "minimum": 0,
+                "maximum": 23080,
+                "x-scp-unit": "ppm"
+              },
+              "humidity_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "humidity": {
+                "type": "integer",
+                "description": "Humidity in %.",
+                "minimum": 0,
+                "maximum": 100,
+                "x-scp-unit": "%"
+              },
+              "box_temperature_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "box_temperature": {
+                "type": "number",
+                "description": "Chamber temperature in °C.",
+                "minimum": 0,
+                "maximum": 100,
+                "x-scp-unit": "degC"
+              },
+              "temperature_t1_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "temperature_t1": {
+                "type": "integer",
+                "description": "Temperature probe T1 in °C.",
+                "minimum": 0,
+                "maximum": 1300,
+                "x-scp-unit": "degC"
+              },
+              "temperature_t2_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "temperature_t2": {
+                "type": "number",
+                "description": "Temperature probe T2 in °C.",
+                "minimum": 0,
+                "maximum": 1300,
+                "x-scp-unit": "degC"
+              },
+              "temperature_t3_comparison": {
+                "type": "string",
+                "description": "Comparison operator; must be paired with the corresponding value.",
+                "enum": [
+                  "less_than",
+                  "equal",
+                  "greater_than"
+                ]
+              },
+              "temperature_t3": {
+                "type": "number",
+                "description": "Temperature probe T3 in °C.",
+                "minimum": 0,
+                "maximum": 1300,
+                "x-scp-unit": "degC"
+              }
+            },
+            "required": [
+              "method_name",
+              "timeout"
+            ],
+            "dependentRequired": {
+              "pressure": [
+                "pressure_comparison"
+              ],
+              "pressure_comparison": [
+                "pressure"
+              ],
+              "oxygen": [
+                "oxygen_comparison"
+              ],
+              "oxygen_comparison": [
+                "oxygen"
+              ],
+              "water_content": [
+                "water_content_comparison"
+              ],
+              "water_content_comparison": [
+                "water_content"
+              ],
+              "humidity": [
+                "humidity_comparison"
+              ],
+              "humidity_comparison": [
+                "humidity"
+              ],
+              "box_temperature": [
+                "box_temperature_comparison"
+              ],
+              "box_temperature_comparison": [
+                "box_temperature"
+              ],
+              "temperature_t1": [
+                "temperature_t1_comparison"
+              ],
+              "temperature_t1_comparison": [
+                "temperature_t1"
+              ],
+              "temperature_t2": [
+                "temperature_t2_comparison"
+              ],
+              "temperature_t2_comparison": [
+                "temperature_t2"
+              ],
+              "temperature_t3": [
+                "temperature_t3_comparison"
+              ],
+              "temperature_t3_comparison": [
+                "temperature_t3"
+              ]
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "pressure"
+                ]
+              },
+              {
+                "required": [
+                  "oxygen"
+                ]
+              },
+              {
+                "required": [
+                  "water_content"
+                ]
+              },
+              {
+                "required": [
+                  "humidity"
+                ]
+              },
+              {
+                "required": [
+                  "box_temperature"
+                ]
+              },
+              {
+                "required": [
+                  "temperature_t1"
+                ]
+              },
+              {
+                "required": [
+                  "temperature_t2"
+                ]
+              },
+              {
+                "required": [
+                  "temperature_t3"
+                ]
+              }
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

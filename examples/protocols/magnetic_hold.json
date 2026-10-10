@@ -1,0 +1,42 @@
+{
+  "schema_version": "scp-lab.protocol.v0.1",
+  "name": "magnetic_hold",
+  "experiment_id": "magnetic_hold",
+  "device_id": "ot2",
+  "api_level": "2.20",
+  "setup": {
+    "modules": [
+      {
+        "id": "module",
+        "kind": "magnetic",
+        "slot": 3
+      }
+    ],
+    "labware": [
+      {
+        "id": "plate",
+        "load_name": "nest_96_wellplate_100ul_pcr_full_skirt",
+        "location": "module"
+      }
+    ]
+  },
+  "liquids": [
+    {
+      "sample_id": "demo_sample",
+      "location": {
+        "labware": "plate",
+        "well": "A1"
+      },
+      "volume_ul": 50
+    }
+  ],
+  "steps": [
+    {
+      "id": "hold",
+      "action": "magnetic_separation",
+      "labware": "plate",
+      "height_from_base_mm": 6,
+      "duration_s": 30
+    }
+  ]
+}

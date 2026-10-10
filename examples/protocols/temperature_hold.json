@@ -1,0 +1,42 @@
+{
+  "schema_version": "scp-lab.protocol.v0.1",
+  "name": "temperature_hold",
+  "experiment_id": "temperature_hold",
+  "device_id": "ot2",
+  "api_level": "2.20",
+  "setup": {
+    "modules": [
+      {
+        "id": "module",
+        "kind": "temperature",
+        "slot": 3
+      }
+    ],
+    "labware": [
+      {
+        "id": "plate",
+        "load_name": "opentrons_96_aluminumblock_nest_wellplate_100ul",
+        "location": "module"
+      }
+    ]
+  },
+  "liquids": [
+    {
+      "sample_id": "demo_sample",
+      "location": {
+        "labware": "plate",
+        "well": "A1"
+      },
+      "volume_ul": 50
+    }
+  ],
+  "steps": [
+    {
+      "id": "hold",
+      "action": "incubation",
+      "labware": "plate",
+      "temperature_c": 37,
+      "duration_s": 60
+    }
+  ]
+}

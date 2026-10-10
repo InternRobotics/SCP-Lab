@@ -1,0 +1,10 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "cytomat_6002-validation",
+  "backend": "scp_lab.adapters.offline:create_backend",
+  "enabled": true,
+  "connection": {},
+  "options": {
+    "model_resource": "scp_lab.adapters.storage:models/cytomat_6002.json"
+  }
+}

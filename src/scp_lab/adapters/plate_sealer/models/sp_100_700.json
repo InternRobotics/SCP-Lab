@@ -1,0 +1,203 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "sp_100_700",
+  "device_class": "plate_sealer",
+  "display_name": "SP-100 Plate Seal and Peel System",
+  "capabilities": [
+    {
+      "capability_id": "sp_100_700.plate_sealing",
+      "version": "0.1.0",
+      "description": "Seal a microplate using the specified film type.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "film_type": {
+                "type": "string",
+                "description": "Seal film type.",
+                "enum": [
+                  "aluminum",
+                  "breathable"
+                ],
+                "default": "aluminum"
+              }
+            },
+            "required": [
+              "film_type"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "sp_100_700.plate_unsealing",
+      "version": "0.1.0",
+      "description": "Peel the seal from a microplate.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "peel_mode": {
+                "type": "string",
+                "description": "Peel direction and notch strategy.",
+                "enum": [
+                  "left_without_notch",
+                  "left_with_notch",
+                  "right_with_notch"
+                ],
+                "default": "left_without_notch"
+              },
+              "plate_type": {
+                "type": "string",
+                "description": "Plate type.",
+                "enum": [
+                  "non_pcr",
+                  "pcr"
+                ],
+                "default": "non_pcr"
+              },
+              "film_material": {
+                "type": "string",
+                "description": "Film material.",
+                "enum": [
+                  "transparent",
+                  "plastic_coated_aluminum"
+                ],
+                "default": "plastic_coated_aluminum"
+              }
+            },
+            "required": [
+              "peel_mode",
+              "plate_type",
+              "film_material"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

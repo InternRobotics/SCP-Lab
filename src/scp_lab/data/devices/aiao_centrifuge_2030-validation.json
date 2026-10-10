@@ -1,0 +1,10 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "aiao_centrifuge_2030-validation",
+  "backend": "scp_lab.adapters.offline:create_backend",
+  "enabled": true,
+  "connection": {},
+  "options": {
+    "model_resource": "scp_lab.adapters.centrifuge:models/aiao_centrifuge_2030.json"
+  }
+}

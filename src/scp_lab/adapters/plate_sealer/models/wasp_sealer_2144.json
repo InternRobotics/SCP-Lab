@@ -1,0 +1,101 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "wasp_sealer_2144",
+  "device_class": "plate_sealer",
+  "display_name": "Wasp Heat Sealer",
+  "capabilities": [
+    {
+      "capability_id": "wasp_sealer_2144.plate_sealing",
+      "version": "0.1.0",
+      "description": "Heat-seal a microplate.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "sealing_time": {
+                "type": "number",
+                "description": "Sealing time in seconds.",
+                "minimum": 2.5,
+                "maximum": 9.9,
+                "x-scp-unit": "s"
+              },
+              "sealing_temperature": {
+                "type": "number",
+                "description": "Sealing temperature in °C.",
+                "minimum": 100,
+                "maximum": 999,
+                "x-scp-unit": "degC"
+              }
+            },
+            "required": [
+              "sealing_time",
+              "sealing_temperature"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

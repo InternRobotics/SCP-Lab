@@ -1,0 +1,10 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "agilent_centrifuge_773-validation",
+  "backend": "scp_lab.adapters.offline:create_backend",
+  "enabled": true,
+  "connection": {},
+  "options": {
+    "model_resource": "scp_lab.adapters.centrifuge:models/agilent_centrifuge_773.json"
+  }
+}

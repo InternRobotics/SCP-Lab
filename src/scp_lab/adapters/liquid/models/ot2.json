@@ -1,0 +1,1022 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "ot2",
+  "device_class": "liquid",
+  "display_name": "Opentrons OT-2",
+  "capabilities": [
+    {
+      "capability_id": "ot2.liquid_transfer",
+      "version": "0.1.0",
+      "description": "Aspirate from source and transfer to destination.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "volume": {
+                "type": "number",
+                "description": "Volume in uL.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "uL"
+              }
+            },
+            "required": [
+              "volume"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              },
+              "destination": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "source",
+              "destination"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.liquid_distribution",
+      "version": "0.1.0",
+      "description": "Distribute from a single source to multiple destinations.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "volume_per_destination": {
+                "type": "number",
+                "description": "Volume per destination in uL.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "uL"
+              }
+            },
+            "required": [
+              "volume_per_destination"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              },
+              "destinations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "resource_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "position": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sample_id": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "resource_id"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "source",
+              "destinations"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.liquid_consolidation",
+      "version": "0.1.0",
+      "description": "Consolidate from multiple sources into a single destination.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "volume_per_source": {
+                "type": "number",
+                "description": "Volume per source in uL.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "uL"
+              }
+            },
+            "required": [
+              "volume_per_source"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "resource_id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "position": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sample_id": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "resource_id"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              },
+              "destination": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sources",
+              "destination"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.liquid_removal",
+      "version": "0.1.0",
+      "description": "Aspirate liquid from source and transfer to destination.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "volume": {
+                "type": "number",
+                "description": "Volume in uL.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "uL"
+              }
+            },
+            "required": [
+              "volume"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              },
+              "destination": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "source",
+              "destination"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.pipette_mixing",
+      "version": "0.1.0",
+      "description": "Mix by repeated aspiration and dispense in the well.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "volume": {
+                "type": "number",
+                "description": "Mix aspiration/dispense volume in uL.",
+                "maximum": 1000,
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "uL"
+              },
+              "repetitions": {
+                "type": "integer",
+                "description": "Number of mix repetitions.",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "volume",
+              "repetitions"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.orbital_shaking",
+      "version": "0.1.0",
+      "description": "Shake on the Heater-Shaker module. The sample must already be loaded on the module.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "speed": {
+                "type": "number",
+                "description": "Shaking speed in rpm.",
+                "minimum": 200,
+                "maximum": 3000,
+                "x-scp-unit": "rpm"
+              },
+              "duration": {
+                "type": "number",
+                "description": "Shaking duration in seconds.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "s"
+              }
+            },
+            "required": [
+              "speed",
+              "duration"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.temperature_control",
+      "version": "0.1.0",
+      "description": "Set and hold temperature on the temperature module. The sample must already be loaded on the module.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "setpoint": {
+                "type": "number",
+                "description": "Target temperature in °C.",
+                "minimum": 4,
+                "maximum": 95,
+                "x-scp-unit": "degC"
+              },
+              "duration": {
+                "type": "number",
+                "description": "Hold duration in seconds.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "s"
+              }
+            },
+            "required": [
+              "setpoint",
+              "duration"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.incubation",
+      "version": "0.1.0",
+      "description": "Incubate on the temperature module at the specified temperature and duration. The sample must already be loaded on the module.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "temperature": {
+                "type": "number",
+                "description": "Incubation temperature in °C.",
+                "minimum": 4,
+                "maximum": 95,
+                "x-scp-unit": "degC"
+              },
+              "duration": {
+                "type": "number",
+                "description": "Incubation duration in seconds.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "s"
+              }
+            },
+            "required": [
+              "temperature",
+              "duration"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.thermal_cycling",
+      "version": "0.1.0",
+      "description": "Run a PCR profile on the thermocycler module. The sample must already be loaded on the module.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "cycles": {
+                "type": "integer",
+                "description": "Number of cycles.",
+                "minimum": 1
+              },
+              "lid_temperature": {
+                "type": "number",
+                "description": "Lid temperature in °C.",
+                "minimum": 37,
+                "maximum": 110,
+                "x-scp-unit": "degC"
+              },
+              "block_max_volume": {
+                "type": "number",
+                "description": "Module maximum volume in uL.",
+                "maximum": 200,
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "uL"
+              },
+              "steps": {
+                "type": "array",
+                "minItems": 1,
+                "description": "Thermal cycle steps. The execution layer requires each item to contain exactly temperature and duration.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "temperature": {
+                      "type": "number",
+                      "description": "Step temperature in °C. The execution layer validates the range 4–99.",
+                      "x-scp-unit": "degC"
+                    },
+                    "duration": {
+                      "type": "number",
+                      "description": "Step hold duration."
+                    }
+                  },
+                  "required": [
+                    "temperature",
+                    "duration"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "cycles",
+              "steps",
+              "lid_temperature",
+              "block_max_volume"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    },
+    {
+      "capability_id": "ot2.magnetic_separation",
+      "version": "0.1.0",
+      "description": "Engage magnets and hold on the magnetic module. The sample must already be loaded on the module.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "type": "number",
+                "description": "Magnetic hold duration in seconds.",
+                "exclusiveMinimum": 0,
+                "x-scp-unit": "s"
+              },
+              "height_from_base": {
+                "type": "number",
+                "description": "Magnet height from the base in mm.",
+                "minimum": 0,
+                "maximum": 25,
+                "x-scp-unit": "mm"
+              }
+            },
+            "required": [
+              "duration",
+              "height_from_base"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "aiao_centrifuge_2030",
+  "device_class": "centrifuge",
+  "display_name": "AIAO Centrifuge 2030",
+  "capabilities": [
+    {
+      "capability_id": "aiao_centrifuge_2030.centrifugation",
+      "version": "0.1.0",
+      "description": "Start one centrifugation cycle. Exactly one of speed or rcf is required.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "type": "integer",
+                "description": "Centrifugation duration in seconds.",
+                "minimum": 60,
+                "maximum": 3600,
+                "x-scp-unit": "s"
+              },
+              "speed": {
+                "type": "integer",
+                "description": "Speed in rpm. Mutually exclusive with rcf.",
+                "minimum": 100,
+                "maximum": 4200,
+                "x-scp-unit": "rpm"
+              },
+              "rcf": {
+                "type": "integer",
+                "description": "Relative centrifugal force in g. Mutually exclusive with speed.",
+                "minimum": 100,
+                "maximum": 2000
+              },
+              "ramp": {
+                "type": "integer",
+                "description": "Acceleration/deceleration ramp.",
+                "minimum": 10,
+                "maximum": 150,
+                "default": 50
+              }
+            },
+            "required": [
+              "duration",
+              "ramp"
+            ],
+            "oneOf": [
+              {
+                "required": [
+                  "speed"
+                ],
+                "not": {
+                  "required": [
+                    "rcf"
+                  ]
+                }
+              },
+              {
+                "required": [
+                  "rcf"
+                ],
+                "not": {
+                  "required": [
+                    "speed"
+                  ]
+                }
+              }
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+# Install in a separate environment: Opentrons and MCP require incompatible jsonschema versions.
+opentrons==8.8.2

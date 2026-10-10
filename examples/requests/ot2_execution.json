@@ -1,0 +1,61 @@
+{
+  "device_id": "ot2-sim",
+  "capability_id": "ot2.liquid_transfer",
+  "arguments": {
+    "setup": {
+      "labware": [
+        {
+          "id": "tips",
+          "load_name": "opentrons_96_tiprack_300ul",
+          "location": "1"
+        },
+        {
+          "id": "reservoir",
+          "load_name": "nest_12_reservoir_15ml",
+          "location": "2"
+        },
+        {
+          "id": "plate",
+          "load_name": "nest_96_wellplate_200ul_flat",
+          "location": "3"
+        }
+      ],
+      "pipette": {
+        "model": "p300_single_gen2",
+        "mount": "left",
+        "tip_racks": [
+          "tips"
+        ]
+      }
+    },
+    "liquids": [
+      {
+        "sample_id": "diluent",
+        "location": {
+          "labware": "reservoir",
+          "well": "A1"
+        },
+        "volume_ul": 1000
+      },
+      {
+        "sample_id": "dye",
+        "location": {
+          "labware": "plate",
+          "well": "A1"
+        },
+        "volume_ul": 200
+      }
+    ],
+    "parameters": {
+      "source": {
+        "labware": "plate",
+        "well": "A1"
+      },
+      "destination": {
+        "labware": "plate",
+        "well": "B1"
+      },
+      "volume_ul": 50
+    }
+  }
+}

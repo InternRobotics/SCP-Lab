@@ -1,0 +1,16 @@
+.venv/
+.venv-sim/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.scp-lab/
+build/
+dist/
+*.egg-info/
+mcp-config*.json
+lab-devices/
+.env
+.env.*
+!.env.example
+.DS_Store

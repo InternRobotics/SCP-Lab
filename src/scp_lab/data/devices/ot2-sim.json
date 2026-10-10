@@ -1,0 +1,8 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "ot2-sim",
+  "backend": "scp_lab.adapters.liquid.ot2:create_backend",
+  "enabled": true,
+  "connection": {},
+  "options": {}
+}

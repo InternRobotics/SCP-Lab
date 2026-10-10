@@ -1,0 +1,190 @@
+{
+  "$defs": {
+    "Capability": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_id": {
+          "minLength": 1,
+          "title": "Capability Id",
+          "type": "string"
+        },
+        "version": {
+          "default": "0.1.0",
+          "title": "Version",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "input_schema": {
+          "additionalProperties": true,
+          "title": "Input Schema",
+          "type": "object"
+        },
+        "result_schema": {
+          "additionalProperties": true,
+          "title": "Result Schema",
+          "type": "object"
+        },
+        "completion_criteria": {
+          "default": "Backend returns evidence for the advertised execution mode.",
+          "title": "Completion Criteria",
+          "type": "string"
+        },
+        "access_level": {
+          "anyOf": [
+            {
+              "enum": [
+                "L1",
+                "L2",
+                "L3",
+                "L4",
+                "L5"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Access Level"
+        },
+        "defaults_policy": {
+          "default": "not_applied",
+          "enum": [
+            "not_applied",
+            "backend_resolved"
+          ],
+          "title": "Defaults Policy",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "capability_id",
+        "description",
+        "input_schema"
+      ],
+      "title": "Capability",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "device_id": {
+      "minLength": 1,
+      "title": "Device Id",
+      "type": "string"
+    },
+    "model_id": {
+      "title": "Model Id",
+      "type": "string"
+    },
+    "device_class": {
+      "title": "Device Class",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "backend_id": {
+      "title": "Backend Id",
+      "type": "string"
+    },
+    "execution_mode": {
+      "enum": [
+        "schema_validation",
+        "official_simulation",
+        "mock",
+        "hardware"
+      ],
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "physical_execution": {
+      "default": false,
+      "title": "Physical Execution",
+      "type": "boolean"
+    },
+    "cancellation_supported": {
+      "default": false,
+      "title": "Cancellation Supported",
+      "type": "boolean"
+    },
+    "provider": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provider"
+    },
+    "configuration_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Configuration Version"
+    },
+    "state_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "State Schema"
+    },
+    "schema_version": {
+      "const": "scp-lab.device-descriptor.v0.1",
+      "default": "scp-lab.device-descriptor.v0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "descriptor_revision": {
+      "title": "Descriptor Revision",
+      "type": "string"
+    },
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/Capability"
+      },
+      "title": "Capabilities",
+      "type": "array"
+    }
+  },
+  "required": [
+    "device_id",
+    "model_id",
+    "device_class",
+    "display_name",
+    "backend_id",
+    "execution_mode",
+    "descriptor_revision",
+    "capabilities"
+  ],
+  "title": "DeviceDescriptor",
+  "type": "object"
+}

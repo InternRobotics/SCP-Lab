@@ -1,0 +1,57 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "example_heater",
+  "device_class": "temperature_controller",
+  "display_name": "Example heater interface",
+  "capabilities": [
+    {
+      "capability_id": "example_heater.hold",
+      "description": "Validate a requested temperature and duration.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "target_celsius": {
+            "type": "number",
+            "minimum": 20,
+            "maximum": 95,
+            "x-scp-unit": "degC"
+          },
+          "duration_s": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "x-scp-unit": "s"
+          }
+        },
+        "required": [
+          "target_celsius",
+          "duration_s"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "completion_criteria": "The declared parameter schema accepts the request.",
+      "access_level": "L3"
+    }
+  ]
+}

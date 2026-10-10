@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scp-lab"
+version = "0.1.0"
+description = "SCP-Lab device access protocol and local execution reference implementation"
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2.10,<3", "jsonschema>=4.20,<5"]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.30,<2"]
+dev = ["pytest>=8,<9", "ruff>=0.9,<1"]
+
+[project.scripts]
+scp-lab = "scp_lab.cli:main"
+scp-lab-mcp = "scp_lab.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scp_lab"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src", "/tests", "/examples", "/docs", "/schemas", "/scripts", "/.github",
+    "/README.md", "/README.zh-CN.md", "/CONTRIBUTING.md", "/CONTRIBUTING.zh-CN.md",
+    "/pyproject.toml", "/uv.lock", "/requirements-simulation.txt",
+    "/requirements-simulation.lock", "/.gitignore",
+]
+exclude = ["**/__pycache__", "**/*.pyc", "**/.DS_Store"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["simulation: requires the optional official Opentrons simulator", "mcp: requires the optional MCP SDK"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = ["examples/results"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

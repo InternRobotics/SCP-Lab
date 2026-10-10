@@ -1,0 +1,685 @@
+{
+  "$defs": {
+    "Consolidate": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "liquid_consolidation",
+          "default": "liquid_consolidation",
+          "title": "Action",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/WellRef"
+          },
+          "maxItems": 96,
+          "minItems": 1,
+          "title": "Sources",
+          "type": "array"
+        },
+        "destination": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "volume_per_source_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Per Source Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        }
+      },
+      "required": [
+        "id",
+        "sources",
+        "destination",
+        "volume_per_source_ul"
+      ],
+      "title": "Consolidate",
+      "type": "object"
+    },
+    "Delay": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "delay",
+          "default": "delay",
+          "title": "Action",
+          "type": "string"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "id",
+        "duration_s"
+      ],
+      "title": "Delay",
+      "type": "object"
+    },
+    "Distribute": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "liquid_distribution",
+          "default": "liquid_distribution",
+          "title": "Action",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "destinations": {
+          "items": {
+            "$ref": "#/$defs/WellRef"
+          },
+          "maxItems": 96,
+          "minItems": 1,
+          "title": "Destinations",
+          "type": "array"
+        },
+        "volume_per_destination_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Per Destination Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "destinations",
+        "volume_per_destination_ul"
+      ],
+      "title": "Distribute",
+      "type": "object"
+    },
+    "Incubate": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "incubation",
+          "default": "incubation",
+          "title": "Action",
+          "type": "string"
+        },
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "temperature_c": {
+          "maximum": 95,
+          "minimum": 4,
+          "title": "Temperature C",
+          "type": "number",
+          "x-scp-unit": "degC"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "id",
+        "labware",
+        "temperature_c",
+        "duration_s"
+      ],
+      "title": "Incubate",
+      "type": "object"
+    },
+    "InitialLiquid": {
+      "additionalProperties": false,
+      "properties": {
+        "sample_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Sample Id",
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "volume_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        }
+      },
+      "required": [
+        "sample_id",
+        "location",
+        "volume_ul"
+      ],
+      "title": "InitialLiquid",
+      "type": "object"
+    },
+    "Labware": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "load_name": {
+          "title": "Load Name",
+          "type": "string"
+        },
+        "location": {
+          "description": "OT-2 slot 1–11 or a declared module ID",
+          "title": "Location",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "load_name",
+        "location"
+      ],
+      "title": "Labware",
+      "type": "object"
+    },
+    "MagneticHold": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "magnetic_separation",
+          "default": "magnetic_separation",
+          "title": "Action",
+          "type": "string"
+        },
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "height_from_base_mm": {
+          "maximum": 20,
+          "minimum": 0,
+          "title": "Height From Base Mm",
+          "type": "number",
+          "x-scp-unit": "mm"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "id",
+        "labware",
+        "height_from_base_mm",
+        "duration_s"
+      ],
+      "title": "MagneticHold",
+      "type": "object"
+    },
+    "Mix": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "pipette_mixing",
+          "default": "pipette_mixing",
+          "title": "Action",
+          "type": "string"
+        },
+        "sample": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "volume_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        },
+        "repetitions": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Repetitions",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "sample",
+        "volume_ul",
+        "repetitions"
+      ],
+      "title": "Mix",
+      "type": "object"
+    },
+    "Module": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "temperature",
+            "heater_shaker",
+            "thermocycler",
+            "magnetic"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "slot": {
+          "maximum": 11,
+          "minimum": 1,
+          "title": "Slot",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "slot"
+      ],
+      "title": "Module",
+      "type": "object"
+    },
+    "Pipette": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "enum": [
+            "p20_single_gen2",
+            "p300_single_gen2",
+            "p1000_single_gen2"
+          ],
+          "title": "Model",
+          "type": "string"
+        },
+        "mount": {
+          "default": "left",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "title": "Mount",
+          "type": "string"
+        },
+        "tip_racks": {
+          "items": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Tip Racks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "model",
+        "tip_racks"
+      ],
+      "title": "Pipette",
+      "type": "object"
+    },
+    "Setup": {
+      "additionalProperties": false,
+      "properties": {
+        "labware": {
+          "items": {
+            "$ref": "#/$defs/Labware"
+          },
+          "maxItems": 11,
+          "minItems": 1,
+          "title": "Labware",
+          "type": "array"
+        },
+        "modules": {
+          "items": {
+            "$ref": "#/$defs/Module"
+          },
+          "maxItems": 4,
+          "title": "Modules",
+          "type": "array"
+        },
+        "pipette": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Pipette"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "labware"
+      ],
+      "title": "Setup",
+      "type": "object"
+    },
+    "Shake": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "orbital_shaking",
+          "default": "orbital_shaking",
+          "title": "Action",
+          "type": "string"
+        },
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "speed_rpm": {
+          "maximum": 3000,
+          "minimum": 200,
+          "title": "Speed Rpm",
+          "type": "integer",
+          "x-scp-unit": "rpm"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "id",
+        "labware",
+        "speed_rpm",
+        "duration_s"
+      ],
+      "title": "Shake",
+      "type": "object"
+    },
+    "ThermalCycle": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "thermal_cycling",
+          "default": "thermal_cycling",
+          "title": "Action",
+          "type": "string"
+        },
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "cycles": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Cycles",
+          "type": "integer"
+        },
+        "lid_temperature_c": {
+          "default": 105,
+          "maximum": 110,
+          "minimum": 37,
+          "title": "Lid Temperature C",
+          "type": "number",
+          "x-scp-unit": "degC"
+        },
+        "block_max_volume_ul": {
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Block Max Volume Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        },
+        "profile": {
+          "items": {
+            "$ref": "#/$defs/ThermalStage"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Profile",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "labware",
+        "cycles",
+        "block_max_volume_ul",
+        "profile"
+      ],
+      "title": "ThermalCycle",
+      "type": "object"
+    },
+    "ThermalStage": {
+      "additionalProperties": false,
+      "properties": {
+        "temperature_c": {
+          "maximum": 99,
+          "minimum": 4,
+          "title": "Temperature C",
+          "type": "number",
+          "x-scp-unit": "degC"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "temperature_c",
+        "duration_s"
+      ],
+      "title": "ThermalStage",
+      "type": "object"
+    },
+    "Transfer": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "const": "liquid_transfer",
+          "default": "liquid_transfer",
+          "title": "Action",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "destination": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "volume_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "destination",
+        "volume_ul"
+      ],
+      "title": "Transfer",
+      "type": "object"
+    },
+    "WellRef": {
+      "additionalProperties": false,
+      "properties": {
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "well": {
+          "pattern": "^[A-H](?:[1-9]|1[0-2])$",
+          "title": "Well",
+          "type": "string"
+        }
+      },
+      "required": [
+        "labware",
+        "well"
+      ],
+      "title": "WellRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "scp-lab.protocol.v0.1",
+      "default": "scp-lab.protocol.v0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "experiment_id": {
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+      "title": "Experiment Id",
+      "type": "string"
+    },
+    "device_id": {
+      "const": "ot2",
+      "default": "ot2",
+      "title": "Device Id",
+      "type": "string"
+    },
+    "api_level": {
+      "const": "2.20",
+      "default": "2.20",
+      "title": "Api Level",
+      "type": "string"
+    },
+    "setup": {
+      "$ref": "#/$defs/Setup"
+    },
+    "liquids": {
+      "items": {
+        "$ref": "#/$defs/InitialLiquid"
+      },
+      "maxItems": 1056,
+      "title": "Liquids",
+      "type": "array"
+    },
+    "steps": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "delay": "#/$defs/Delay",
+            "incubation": "#/$defs/Incubate",
+            "liquid_consolidation": "#/$defs/Consolidate",
+            "liquid_distribution": "#/$defs/Distribute",
+            "liquid_transfer": "#/$defs/Transfer",
+            "magnetic_separation": "#/$defs/MagneticHold",
+            "orbital_shaking": "#/$defs/Shake",
+            "pipette_mixing": "#/$defs/Mix",
+            "thermal_cycling": "#/$defs/ThermalCycle"
+          },
+          "propertyName": "action"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Transfer"
+          },
+          {
+            "$ref": "#/$defs/Distribute"
+          },
+          {
+            "$ref": "#/$defs/Consolidate"
+          },
+          {
+            "$ref": "#/$defs/Mix"
+          },
+          {
+            "$ref": "#/$defs/Incubate"
+          },
+          {
+            "$ref": "#/$defs/Shake"
+          },
+          {
+            "$ref": "#/$defs/ThermalCycle"
+          },
+          {
+            "$ref": "#/$defs/MagneticHold"
+          },
+          {
+            "$ref": "#/$defs/Delay"
+          }
+        ]
+      },
+      "maxItems": 500,
+      "minItems": 1,
+      "title": "Steps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "name",
+    "experiment_id",
+    "setup",
+    "steps"
+  ],
+  "title": "Protocol",
+  "type": "object"
+}

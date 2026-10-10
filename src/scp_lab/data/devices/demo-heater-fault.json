@@ -1,0 +1,10 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "demo-heater-fault",
+  "backend": "scp_lab.adapters.heater.backend:create_backend",
+  "enabled": true,
+  "connection": {},
+  "options": {
+    "fail": true
+  }
+}

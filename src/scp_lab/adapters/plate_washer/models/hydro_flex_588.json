@@ -1,0 +1,211 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "hydro_flex_588",
+  "device_class": "plate_washer",
+  "display_name": "Hydro Flex Plate Washer",
+  "capabilities": [
+    {
+      "capability_id": "hydro_flex_588.plate_washing",
+      "version": "0.1.0",
+      "description": "Run wash cycles on a microplate. When move=true, z_position must be overflow or custom.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "type": "string",
+                "description": "Wash mode.",
+                "enum": [
+                  "normal",
+                  "crosswise"
+                ],
+                "default": "normal"
+              },
+              "z_position": {
+                "type": "string",
+                "description": "Needle height strategy.",
+                "enum": [
+                  "overflow",
+                  "bottom",
+                  "custom"
+                ],
+                "default": "overflow"
+              },
+              "move": {
+                "type": "boolean",
+                "description": "Whether to move the needles during washing.",
+                "default": true
+              },
+              "wash_volume": {
+                "type": "integer",
+                "description": "Wash volume in uL.",
+                "minimum": 50,
+                "maximum": 3000,
+                "multipleOf": 50,
+                "default": 300,
+                "x-scp-unit": "uL"
+              },
+              "head_speed": {
+                "type": "integer",
+                "description": "Needle speed.",
+                "minimum": 1,
+                "maximum": 20,
+                "default": 10
+              },
+              "flow_rate": {
+                "description": "Wash flow rate. The configured enum includes drip and numeric levels.",
+                "enum": [
+                  "drip",
+                  200,
+                  250,
+                  300,
+                  400,
+                  500
+                ],
+                "default": 300
+              },
+              "aspirate_rate": {
+                "type": "integer",
+                "description": "Aspiration rate level.",
+                "minimum": 1,
+                "maximum": 3,
+                "default": 2
+              },
+              "aspirate_time": {
+                "type": "integer",
+                "description": "Aspiration time in seconds.",
+                "minimum": 1,
+                "maximum": 20,
+                "default": 5,
+                "x-scp-unit": "s"
+              },
+              "channel": {
+                "type": "integer",
+                "description": "Channel.",
+                "minimum": 1,
+                "maximum": 4,
+                "default": 1
+              },
+              "cycles": {
+                "type": "integer",
+                "description": "Number of wash cycles.",
+                "minimum": 1,
+                "maximum": 9,
+                "default": 3
+              },
+              "wash_area": {
+                "type": "string",
+                "description": "Wash area.",
+                "enum": [
+                  "whole_plate",
+                  "strips",
+                  "mask"
+                ],
+                "default": "whole_plate"
+              }
+            },
+            "required": [
+              "mode",
+              "z_position",
+              "move",
+              "wash_volume",
+              "head_speed",
+              "flow_rate",
+              "aspirate_rate",
+              "aspirate_time",
+              "channel",
+              "cycles",
+              "wash_area"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "move": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "move"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "z_position": {
+                      "enum": [
+                        "overflow",
+                        "custom"
+                      ]
+                    }
+                  }
+                }
+              }
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

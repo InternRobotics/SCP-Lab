@@ -1,0 +1,11 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "reader-01",
+  "backend": "example_lab.plate_reader.backend:create_backend",
+  "display_name": "Demonstration reader 1",
+  "enabled": true,
+  "connection": {},
+  "options": {
+    "synthetic_absorbance": 0.123
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "agilent_centrifuge_773",
+  "device_class": "centrifuge",
+  "display_name": "Agilent Centrifuge and Centrifuge Loader",
+  "capabilities": [
+    {
+      "capability_id": "agilent_centrifuge_773.centrifugation",
+      "version": "0.1.0",
+      "description": "Start one standard spin cycle.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "speed": {
+                "type": "number",
+                "description": "Speed in rpm.",
+                "minimum": 100,
+                "maximum": 3000,
+                "x-scp-unit": "rpm"
+              },
+              "duration": {
+                "type": "integer",
+                "description": "Centrifugation duration in seconds.",
+                "minimum": 1,
+                "maximum": 86400,
+                "x-scp-unit": "s"
+              },
+              "acceleration_percent": {
+                "type": "number",
+                "description": "Acceleration percent.",
+                "minimum": 0,
+                "maximum": 100,
+                "default": 100,
+                "x-scp-unit": "%"
+              },
+              "deceleration_percent": {
+                "type": "number",
+                "description": "Deceleration percent.",
+                "minimum": 0,
+                "maximum": 100,
+                "default": 100,
+                "x-scp-unit": "%"
+              }
+            },
+            "required": [
+              "speed",
+              "duration",
+              "acceleration_percent",
+              "deceleration_percent"
+            ],
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "sample": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "sample"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

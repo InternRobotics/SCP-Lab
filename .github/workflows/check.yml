@@ -1,0 +1,25 @@
+name: Validate reference implementation
+
+on: [push, pull_request]
+
+jobs:
+  reference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install uv
+      - run: uv sync --frozen --extra mcp --extra dev
+      - run: uv venv --python 3.12 .venv-sim
+      - run: uv pip sync --python .venv-sim/bin/python requirements-simulation.lock
+      - run: .venv/bin/ruff check src tests examples scripts
+      - run: .venv/bin/ruff format --check src tests examples scripts
+      - run: .venv/bin/python scripts/export_schemas.py && git diff --exit-code -- schemas
+      - run: .venv/bin/scp-lab check
+      - run: .venv/bin/python -m pytest -q
+        env:
+          SCP_LAB_SIM_PYTHON: ${{ github.workspace }}/.venv-sim/bin/python
+      - run: uv build
+      - run: .venv/bin/python scripts/check_release.py dist

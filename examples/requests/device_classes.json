@@ -1,0 +1,227 @@
+[
+  {
+    "device_id": "agilent_centrifuge_773-validation",
+    "capability_id": "agilent_centrifuge_773.centrifugation",
+    "arguments": {
+      "parameters": {
+        "speed": 1000,
+        "duration": 30,
+        "acceleration_percent": 100,
+        "deceleration_percent": 100
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "qpix420_2059-validation",
+    "capability_id": "qpix420_2059.colony_picking",
+    "arguments": {
+      "parameters": {
+        "pick_count": 8,
+        "open_lid": true
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "fluent_glovebox_2035-validation",
+    "capability_id": "fluent_glovebox_2035.controlled_environment",
+    "arguments": {
+      "parameters": {
+        "method_name": "demo_method",
+        "timeout": 30,
+        "humidity": 10,
+        "humidity_comparison": "less_than"
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "hamilton_heater_shaker-validation",
+    "capability_id": "hamilton_heater_shaker.orbital_shaking",
+    "arguments": {
+      "parameters": {
+        "speed": 300,
+        "duration": 10
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "hamilton_star-validation",
+    "capability_id": "hamilton_star.liquid_transfer",
+    "arguments": {
+      "parameters": {
+        "volume": 50
+      },
+      "bindings": {
+        "source": {
+          "resource_id": "source-reservoir",
+          "position": "A1"
+        },
+        "destination": {
+          "resource_id": "sample-plate",
+          "position": "A1"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "agilent_biotek_synergy_h1-validation",
+    "capability_id": "agilent_biotek_synergy_h1.plate_reading",
+    "arguments": {
+      "parameters": {
+        "mode": "absorbance",
+        "wavelength": 600
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "wasp_sealer_2144-validation",
+    "capability_id": "wasp_sealer_2144.plate_sealing",
+    "arguments": {
+      "parameters": {
+        "sealing_time": 3,
+        "sealing_temperature": 120
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "hydro_flex_588-validation",
+    "capability_id": "hydro_flex_588.plate_washing",
+    "arguments": {
+      "parameters": {
+        "mode": "normal",
+        "z_position": "overflow",
+        "move": true,
+        "wash_volume": 300,
+        "head_speed": 10,
+        "flow_rate": 300,
+        "aspirate_rate": 2,
+        "aspirate_time": 5,
+        "channel": 1,
+        "cycles": 3,
+        "wash_area": "whole_plate"
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "aiao_dispenser_1427-validation",
+    "capability_id": "aiao_dispenser_1427.reagent_dispensing",
+    "arguments": {
+      "parameters": {
+        "pilot_injection": true,
+        "fill_time": 10,
+        "pilot_volume": 10,
+        "dispense_volume": 50,
+        "dispense_speed": "mid",
+        "valve": 1,
+        "dispense_area": "whole_plate"
+      },
+      "bindings": {
+        "source": {
+          "resource_id": "source-reservoir",
+          "position": "A1"
+        },
+        "destination": {
+          "resource_id": "sample-plate",
+          "position": "A1"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "cytomat_6002-validation",
+    "capability_id": "cytomat_6002.incubation",
+    "arguments": {
+      "parameters": {
+        "duration": 30,
+        "temperature": 37
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "inheco_cpac-validation",
+    "capability_id": "inheco_cpac.temperature_control",
+    "arguments": {
+      "parameters": {
+        "setpoint": 37
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "inheco_odtc-validation",
+    "capability_id": "inheco_odtc.thermal_cycling",
+    "arguments": {
+      "parameters": {
+        "cycles": 2,
+        "steps": [
+          {
+            "temperature": 37,
+            "duration": 10
+          }
+        ]
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  },
+  {
+    "device_id": "hamilton_tilt_module-validation",
+    "capability_id": "hamilton_tilt_module.plate_tilting",
+    "arguments": {
+      "parameters": {
+        "angle": 10
+      },
+      "bindings": {
+        "sample": {
+          "resource_id": "sample-plate"
+        }
+      }
+    }
+  }
+]

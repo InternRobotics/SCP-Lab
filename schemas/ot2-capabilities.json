@@ -1,0 +1,529 @@
+[
+  {
+    "capability_id": "ot2.liquid_transfer",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Transfer liquid between two wells using one fresh tip.",
+    "input_schema": {
+      "$defs": {
+        "WellRef": {
+          "additionalProperties": false,
+          "properties": {
+            "labware": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+              "title": "Labware",
+              "type": "string"
+            },
+            "well": {
+              "pattern": "^[A-H](?:[1-9]|1[0-2])$",
+              "title": "Well",
+              "type": "string"
+            }
+          },
+          "required": [
+            "labware",
+            "well"
+          ],
+          "title": "WellRef",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "destination": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "volume_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        }
+      },
+      "required": [
+        "source",
+        "destination",
+        "volume_ul"
+      ],
+      "title": "Transfer",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.liquid_distribution",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Transfer to each destination with a fresh tip per destination; no bulk aspiration.",
+    "input_schema": {
+      "$defs": {
+        "WellRef": {
+          "additionalProperties": false,
+          "properties": {
+            "labware": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+              "title": "Labware",
+              "type": "string"
+            },
+            "well": {
+              "pattern": "^[A-H](?:[1-9]|1[0-2])$",
+              "title": "Well",
+              "type": "string"
+            }
+          },
+          "required": [
+            "labware",
+            "well"
+          ],
+          "title": "WellRef",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "destinations": {
+          "items": {
+            "$ref": "#/$defs/WellRef"
+          },
+          "maxItems": 96,
+          "minItems": 1,
+          "title": "Destinations",
+          "type": "array"
+        },
+        "volume_per_destination_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Per Destination Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        }
+      },
+      "required": [
+        "source",
+        "destinations",
+        "volume_per_destination_ul"
+      ],
+      "title": "Distribute",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.liquid_consolidation",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Transfer from each source with a fresh tip per source; no pooled aspiration.",
+    "input_schema": {
+      "$defs": {
+        "WellRef": {
+          "additionalProperties": false,
+          "properties": {
+            "labware": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+              "title": "Labware",
+              "type": "string"
+            },
+            "well": {
+              "pattern": "^[A-H](?:[1-9]|1[0-2])$",
+              "title": "Well",
+              "type": "string"
+            }
+          },
+          "required": [
+            "labware",
+            "well"
+          ],
+          "title": "WellRef",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/WellRef"
+          },
+          "maxItems": 96,
+          "minItems": 1,
+          "title": "Sources",
+          "type": "array"
+        },
+        "destination": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "volume_per_source_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Per Source Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        }
+      },
+      "required": [
+        "sources",
+        "destination",
+        "volume_per_source_ul"
+      ],
+      "title": "Consolidate",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.pipette_mixing",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Mix declared liquid in a well using a fresh tip.",
+    "input_schema": {
+      "$defs": {
+        "WellRef": {
+          "additionalProperties": false,
+          "properties": {
+            "labware": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+              "title": "Labware",
+              "type": "string"
+            },
+            "well": {
+              "pattern": "^[A-H](?:[1-9]|1[0-2])$",
+              "title": "Well",
+              "type": "string"
+            }
+          },
+          "required": [
+            "labware",
+            "well"
+          ],
+          "title": "WellRef",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "sample": {
+          "$ref": "#/$defs/WellRef"
+        },
+        "volume_ul": {
+          "exclusiveMinimum": 0,
+          "title": "Volume Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        },
+        "repetitions": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Repetitions",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sample",
+        "volume_ul",
+        "repetitions"
+      ],
+      "title": "Mix",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.incubation",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Set a Temperature Module, wait at target for the duration, then deactivate.",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "temperature_c": {
+          "maximum": 95,
+          "minimum": 4,
+          "title": "Temperature C",
+          "type": "number",
+          "x-scp-unit": "degC"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "labware",
+        "temperature_c",
+        "duration_s"
+      ],
+      "title": "Incubate",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.orbital_shaking",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Latch, shake on a Heater-Shaker, then stop shaking.",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "speed_rpm": {
+          "maximum": 3000,
+          "minimum": 200,
+          "title": "Speed Rpm",
+          "type": "integer",
+          "x-scp-unit": "rpm"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "labware",
+        "speed_rpm",
+        "duration_s"
+      ],
+      "title": "Shake",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.thermal_cycling",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Close lid, execute the thermal profile, deactivate and reopen lid.",
+    "input_schema": {
+      "$defs": {
+        "ThermalStage": {
+          "additionalProperties": false,
+          "properties": {
+            "temperature_c": {
+              "maximum": 99,
+              "minimum": 4,
+              "title": "Temperature C",
+              "type": "number",
+              "x-scp-unit": "degC"
+            },
+            "duration_s": {
+              "exclusiveMinimum": 0,
+              "title": "Duration S",
+              "type": "number",
+              "x-scp-unit": "s"
+            }
+          },
+          "required": [
+            "temperature_c",
+            "duration_s"
+          ],
+          "title": "ThermalStage",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "cycles": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Cycles",
+          "type": "integer"
+        },
+        "lid_temperature_c": {
+          "default": 105,
+          "maximum": 110,
+          "minimum": 37,
+          "title": "Lid Temperature C",
+          "type": "number",
+          "x-scp-unit": "degC"
+        },
+        "block_max_volume_ul": {
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Block Max Volume Ul",
+          "type": "number",
+          "x-scp-unit": "uL"
+        },
+        "profile": {
+          "items": {
+            "$ref": "#/$defs/ThermalStage"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "title": "Profile",
+          "type": "array"
+        }
+      },
+      "required": [
+        "labware",
+        "cycles",
+        "block_max_volume_ul",
+        "profile"
+      ],
+      "title": "ThermalCycle",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.magnetic_separation",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": "L3",
+    "description": "Engage a Magnetic Module at explicit height, hold, then disengage.",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "labware": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,63}$",
+          "title": "Labware",
+          "type": "string"
+        },
+        "height_from_base_mm": {
+          "maximum": 20,
+          "minimum": 0,
+          "title": "Height From Base Mm",
+          "type": "number",
+          "x-scp-unit": "mm"
+        },
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "labware",
+        "height_from_base_mm",
+        "duration_s"
+      ],
+      "title": "MagneticHold",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  },
+  {
+    "capability_id": "ot2.delay",
+    "version": "0.1.0",
+    "device_id": "ot2",
+    "access_level": null,
+    "description": "Wait for a declared interval within the protocol.",
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_s": {
+          "exclusiveMinimum": 0,
+          "title": "Duration S",
+          "type": "number",
+          "x-scp-unit": "s"
+        }
+      },
+      "required": [
+        "duration_s"
+      ],
+      "title": "Delay",
+      "type": "object"
+    },
+    "execution_modes": [
+      "compile",
+      "official_simulation"
+    ],
+    "implementation_status": "implemented",
+    "hardware_validation": "not_performed",
+    "simulation_validation": "reported_per_run",
+    "completion_criteria": "Official simulator returns without error; this establishes simulation completion only.",
+    "setup_required": true
+  }
+]

@@ -1,0 +1,145 @@
+{
+  "schema_version": "scp-lab.protocol.v0.1",
+  "name": "serial_dilution",
+  "experiment_id": "serial_dilution",
+  "device_id": "ot2",
+  "api_level": "2.20",
+  "setup": {
+    "labware": [
+      {
+        "id": "tips",
+        "load_name": "opentrons_96_tiprack_300ul",
+        "location": "1"
+      },
+      {
+        "id": "reservoir",
+        "load_name": "nest_12_reservoir_15ml",
+        "location": "2"
+      },
+      {
+        "id": "plate",
+        "load_name": "nest_96_wellplate_200ul_flat",
+        "location": "3"
+      }
+    ],
+    "pipette": {
+      "model": "p300_single_gen2",
+      "mount": "left",
+      "tip_racks": [
+        "tips"
+      ]
+    }
+  },
+  "liquids": [
+    {
+      "sample_id": "diluent",
+      "location": {
+        "labware": "reservoir",
+        "well": "A1"
+      },
+      "volume_ul": 1000
+    },
+    {
+      "sample_id": "dye",
+      "location": {
+        "labware": "plate",
+        "well": "A1"
+      },
+      "volume_ul": 200
+    }
+  ],
+  "steps": [
+    {
+      "id": "add_diluent",
+      "action": "liquid_distribution",
+      "source": {
+        "labware": "reservoir",
+        "well": "A1"
+      },
+      "destinations": [
+        {
+          "labware": "plate",
+          "well": "A2"
+        },
+        {
+          "labware": "plate",
+          "well": "A3"
+        },
+        {
+          "labware": "plate",
+          "well": "A4"
+        }
+      ],
+      "volume_per_destination_ul": 100
+    },
+    {
+      "id": "transfer_1",
+      "action": "liquid_transfer",
+      "source": {
+        "labware": "plate",
+        "well": "A1"
+      },
+      "destination": {
+        "labware": "plate",
+        "well": "A2"
+      },
+      "volume_ul": 100
+    },
+    {
+      "id": "mix_1",
+      "action": "pipette_mixing",
+      "sample": {
+        "labware": "plate",
+        "well": "A2"
+      },
+      "volume_ul": 100,
+      "repetitions": 3
+    },
+    {
+      "id": "transfer_2",
+      "action": "liquid_transfer",
+      "source": {
+        "labware": "plate",
+        "well": "A2"
+      },
+      "destination": {
+        "labware": "plate",
+        "well": "A3"
+      },
+      "volume_ul": 100
+    },
+    {
+      "id": "mix_2",
+      "action": "pipette_mixing",
+      "sample": {
+        "labware": "plate",
+        "well": "A3"
+      },
+      "volume_ul": 100,
+      "repetitions": 3
+    },
+    {
+      "id": "transfer_3",
+      "action": "liquid_transfer",
+      "source": {
+        "labware": "plate",
+        "well": "A3"
+      },
+      "destination": {
+        "labware": "plate",
+        "well": "A4"
+      },
+      "volume_ul": 100
+    },
+    {
+      "id": "mix_3",
+      "action": "pipette_mixing",
+      "sample": {
+        "labware": "plate",
+        "well": "A4"
+      },
+      "volume_ul": 100,
+      "repetitions": 3
+    }
+  ]
+}

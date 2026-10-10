@@ -1,0 +1,10 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "inheco_odtc-validation",
+  "backend": "scp_lab.adapters.offline:create_backend",
+  "enabled": true,
+  "connection": {},
+  "options": {
+    "model_resource": "scp_lab.adapters.thermocycler:models/inheco_odtc.json"
+  }
+}

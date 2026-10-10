@@ -1,0 +1,187 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "aiao_dispenser_1427",
+  "device_class": "reagent_dispenser",
+  "display_name": "AIAO Dispenser 4",
+  "capabilities": [
+    {
+      "capability_id": "aiao_dispenser_1427.reagent_dispensing",
+      "version": "0.1.0",
+      "description": "Dispense by valve and volume. wash_cycles and wash_time must appear as a pair.",
+      "input_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "pilot_injection": {
+                "type": "boolean",
+                "description": "Whether to perform a pilot injection first.",
+                "default": true
+              },
+              "fill_time": {
+                "type": "number",
+                "description": "Fill time in seconds.",
+                "minimum": 0,
+                "maximum": 100,
+                "default": 10,
+                "x-scp-unit": "s"
+              },
+              "pilot_volume": {
+                "type": "integer",
+                "description": "Pilot volume in uL.",
+                "minimum": 0,
+                "default": 10,
+                "x-scp-unit": "uL"
+              },
+              "dispense_volume": {
+                "type": "integer",
+                "description": "Dispense volume in uL.",
+                "minimum": 1,
+                "x-scp-unit": "uL"
+              },
+              "dispense_speed": {
+                "type": "string",
+                "description": "Dispense speed.",
+                "enum": [
+                  "low",
+                  "mid",
+                  "high"
+                ],
+                "default": "mid"
+              },
+              "valve": {
+                "type": "integer",
+                "description": "Valve position.",
+                "default": 1,
+                "enum": [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              },
+              "dispense_area": {
+                "type": "string",
+                "description": "Dispense area.",
+                "default": "whole_plate"
+              },
+              "wash_cycles": {
+                "type": "integer",
+                "description": "Number of line wash cycles.",
+                "minimum": 0,
+                "maximum": 255
+              },
+              "wash_time": {
+                "type": "integer",
+                "description": "Line wash time in seconds.",
+                "minimum": 0,
+                "maximum": 255,
+                "x-scp-unit": "s"
+              }
+            },
+            "required": [
+              "pilot_injection",
+              "fill_time",
+              "pilot_volume",
+              "dispense_volume",
+              "dispense_speed",
+              "valve",
+              "dispense_area"
+            ],
+            "dependentRequired": {
+              "wash_cycles": [
+                "wash_time"
+              ],
+              "wash_time": [
+                "wash_cycles"
+              ]
+            },
+            "additionalProperties": false
+          },
+          "bindings": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              },
+              "destination": {
+                "type": "object",
+                "properties": {
+                  "resource_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "position": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sample_id": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "resource_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "source",
+              "destination"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "parameters",
+          "bindings"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "validated_command",
+          "source",
+          "limitations"
+        ],
+        "properties": {
+          "validated_command": {
+            "type": "object"
+          },
+          "source": {
+            "type": "object"
+          },
+          "limitations": {
+            "type": "array"
+          }
+        }
+      },
+      "completion_criteria": "Published parameter and binding schemas pass validation; no device operation is performed.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "$defs": {
+    "Capability": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_id": {
+          "minLength": 1,
+          "title": "Capability Id",
+          "type": "string"
+        },
+        "version": {
+          "default": "0.1.0",
+          "title": "Version",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "input_schema": {
+          "additionalProperties": true,
+          "title": "Input Schema",
+          "type": "object"
+        },
+        "result_schema": {
+          "additionalProperties": true,
+          "title": "Result Schema",
+          "type": "object"
+        },
+        "completion_criteria": {
+          "default": "Backend returns evidence for the advertised execution mode.",
+          "title": "Completion Criteria",
+          "type": "string"
+        },
+        "access_level": {
+          "anyOf": [
+            {
+              "enum": [
+                "L1",
+                "L2",
+                "L3",
+                "L4",
+                "L5"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Access Level"
+        },
+        "defaults_policy": {
+          "default": "not_applied",
+          "enum": [
+            "not_applied",
+            "backend_resolved"
+          ],
+          "title": "Defaults Policy",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "capability_id",
+        "description",
+        "input_schema"
+      ],
+      "title": "Capability",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Adapter-owned capability definitions; instance and connection settings live elsewhere.",
+  "properties": {
+    "schema_version": {
+      "const": "scp-lab.device-model.v0.1",
+      "default": "scp-lab.device-model.v0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "model_id": {
+      "minLength": 1,
+      "title": "Model Id",
+      "type": "string"
+    },
+    "device_class": {
+      "minLength": 1,
+      "title": "Device Class",
+      "type": "string"
+    },
+    "display_name": {
+      "minLength": 1,
+      "title": "Display Name",
+      "type": "string"
+    },
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/Capability"
+      },
+      "minItems": 1,
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "state_schema": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "State Schema"
+    }
+  },
+  "required": [
+    "model_id",
+    "device_class",
+    "display_name",
+    "capabilities"
+  ],
+  "title": "DeviceModel",
+  "type": "object"
+}

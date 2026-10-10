@@ -1,0 +1,87 @@
+{
+  "schema_version": "scp-lab.protocol.v0.1",
+  "name": "pooling",
+  "experiment_id": "pooling",
+  "device_id": "ot2",
+  "api_level": "2.20",
+  "setup": {
+    "labware": [
+      {
+        "id": "tips",
+        "load_name": "opentrons_96_tiprack_300ul",
+        "location": "1"
+      },
+      {
+        "id": "reservoir",
+        "load_name": "nest_12_reservoir_15ml",
+        "location": "2"
+      },
+      {
+        "id": "plate",
+        "load_name": "nest_96_wellplate_200ul_flat",
+        "location": "3"
+      }
+    ],
+    "pipette": {
+      "model": "p300_single_gen2",
+      "mount": "left",
+      "tip_racks": [
+        "tips"
+      ]
+    }
+  },
+  "liquids": [
+    {
+      "sample_id": "sample_a",
+      "location": {
+        "labware": "plate",
+        "well": "A1"
+      },
+      "volume_ul": 100
+    },
+    {
+      "sample_id": "sample_b",
+      "location": {
+        "labware": "plate",
+        "well": "A2"
+      },
+      "volume_ul": 100
+    }
+  ],
+  "steps": [
+    {
+      "id": "pool",
+      "action": "liquid_consolidation",
+      "sources": [
+        {
+          "labware": "plate",
+          "well": "A1"
+        },
+        {
+          "labware": "plate",
+          "well": "A2"
+        }
+      ],
+      "destination": {
+        "labware": "plate",
+        "well": "B1"
+      },
+      "volume_per_source_ul": 50
+    },
+    {
+      "id": "mix",
+      "action": "pipette_mixing",
+      "sample": {
+        "labware": "plate",
+        "well": "B1"
+      },
+      "volume_ul": 50,
+      "repetitions": 3
+    },
+    {
+      "id": "settle",
+      "action": "delay",
+      "duration_s": 5
+    }
+  ]
+}

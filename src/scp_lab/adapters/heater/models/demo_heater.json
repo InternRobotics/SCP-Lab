@@ -1,0 +1,61 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "demo_heater",
+  "device_class": "temperature_controller",
+  "display_name": "Mock heater",
+  "capabilities": [
+    {
+      "capability_id": "demo_heater.hold",
+      "version": "0.1.0",
+      "description": "Timed runtime demonstration, no physical heating.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "target_celsius": {
+            "type": "number",
+            "minimum": 4,
+            "maximum": 95,
+            "x-scp-unit": "degC"
+          },
+          "duration_s": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 10,
+            "default": 1,
+            "x-scp-unit": "s"
+          }
+        },
+        "required": [
+          "target_celsius"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "requested_target_celsius",
+          "elapsed_demo_seconds",
+          "measured_temperature"
+        ],
+        "properties": {
+          "requested_target_celsius": {
+            "type": "number",
+            "x-scp-unit": "degC"
+          },
+          "elapsed_demo_seconds": {
+            "type": "number",
+            "x-scp-unit": "s"
+          },
+          "measured_temperature": {
+            "type": "null",
+            "x-scp-unit": "degC"
+          }
+        }
+      },
+      "completion_criteria": "The mock timer finishes or confirms it stopped after cancellation.",
+      "access_level": "L3",
+      "defaults_policy": "backend_resolved",
+      "limitations": []
+    }
+  ]
+}

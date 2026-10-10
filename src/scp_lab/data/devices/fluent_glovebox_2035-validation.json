@@ -1,0 +1,10 @@
+{
+  "schema_version": "scp-lab.device-config.v0.1",
+  "device_id": "fluent_glovebox_2035-validation",
+  "backend": "scp_lab.adapters.offline:create_backend",
+  "enabled": true,
+  "connection": {},
+  "options": {
+    "model_resource": "scp_lab.adapters.glovebox:models/fluent_glovebox_2035.json"
+  }
+}

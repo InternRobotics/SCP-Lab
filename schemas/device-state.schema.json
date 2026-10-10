@@ -1,0 +1,128 @@
+{
+  "$defs": {
+    "StateObservation": {
+      "additionalProperties": false,
+      "description": "Device-specific values; a query timestamp must not replace the observation timestamp.",
+      "properties": {
+        "values": {
+          "additionalProperties": true,
+          "title": "Values",
+          "type": "object"
+        },
+        "observed_at": {
+          "title": "Observed At",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "measured",
+            "device_reported",
+            "simulated",
+            "declared"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "values",
+        "observed_at",
+        "source",
+        "kind"
+      ],
+      "title": "StateObservation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "available": {
+      "default": true,
+      "title": "Available",
+      "type": "boolean"
+    },
+    "availability_message": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Availability Message"
+    },
+    "observation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StateObservation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "schema_version": {
+      "const": "scp-lab.device-state.v0.1",
+      "default": "scp-lab.device-state.v0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "device_id": {
+      "title": "Device Id",
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "idle",
+        "busy",
+        "unavailable",
+        "needs_attention"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "active_run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Active Run Id"
+    },
+    "reported_at": {
+      "title": "Reported At",
+      "type": "string"
+    },
+    "source": {
+      "const": "local_execution_runtime",
+      "default": "local_execution_runtime",
+      "title": "Source",
+      "type": "string"
+    },
+    "scope": {
+      "const": "this_server_process",
+      "default": "this_server_process",
+      "title": "Scope",
+      "type": "string"
+    }
+  },
+  "required": [
+    "device_id",
+    "state",
+    "reported_at"
+  ],
+  "title": "DeviceState",
+  "type": "object"
+}

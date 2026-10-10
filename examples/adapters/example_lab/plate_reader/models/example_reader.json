@@ -1,0 +1,78 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "example_reader",
+  "device_class": "plate_reader",
+  "display_name": "User-supplied reader example",
+  "capabilities": [
+    {
+      "capability_id": "example_reader.read_absorbance",
+      "version": "0.1.0",
+      "description": "Read absorbance through a user-owned SDK wrapper (synthetic demo).",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plate_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "wavelength_nm": {
+            "type": "integer",
+            "minimum": 200,
+            "maximum": 1000,
+            "x-scp-unit": "nm"
+          }
+        },
+        "required": [
+          "plate_id",
+          "wavelength_nm"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "required": [
+          "plate_id",
+          "wavelength_nm",
+          "values",
+          "unit",
+          "synthetic"
+        ],
+        "properties": {
+          "wavelength_nm": {
+            "type": "integer",
+            "x-scp-unit": "nm"
+          },
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "x-scp-unit": "AU"
+            }
+          },
+          "unit": {
+            "const": "AU"
+          },
+          "synthetic": {
+            "const": true
+          }
+        }
+      },
+      "completion_criteria": "Demonstration SDK returns a synthetic absorbance record.",
+      "access_level": "L3",
+      "defaults_policy": "not_applied",
+      "limitations": []
+    }
+  ],
+  "state_schema": {
+    "type": "object",
+    "properties": {
+      "last_plate_id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "last_plate_id"
+    ],
+    "additionalProperties": false
+  }
+}
