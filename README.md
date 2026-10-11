@@ -4,7 +4,7 @@
 
 [简体中文](README.zh-CN.md) · [Quick start](docs/getting-started.md) · [Client integration](docs/clients.md) · [Device integration](docs/backends.md) · [Documentation](docs/README.md)
 
-Technical report (with appendix): [Download PDF](docs/report/SCP-Lab-Technical-Report.pdf?raw=true) · [Preview on GitHub](docs/report/SCP-Lab-Technical-Report.pdf)
+Technical report (with appendix): [Read PDF](https://internrobotics.github.io/SCP-Lab/report/SCP-Lab-Technical-Report.pdf) · [Download PDF](docs/report/SCP-Lab-Technical-Report.pdf?raw=true)
 
 SCP-Lab extends the [Science Context Protocol (SCP)](https://github.com/InternScience/scp) for autonomous laboratories. Scientific agents discover experimental capabilities and submit tasks through a shared interface; facility backends control devices or integrated workstations and return execution status and experimental results. Agents use this feedback to refine subsequent experimental plans.
 
