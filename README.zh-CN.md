@@ -4,7 +4,7 @@
 
 [English](README.md) · [快速开始](docs/zh-CN/getting-started.md) · [应用接入](docs/zh-CN/clients.md) · [设备接入](docs/zh-CN/backends.md) · [完整文档](docs/zh-CN/README.md)
 
-技术报告（含附录）：[在线阅读](https://internrobotics.github.io/SCP-Lab/report/SCP-Lab-Technical-Report.pdf) · [下载 PDF](docs/report/SCP-Lab-Technical-Report.pdf?raw=true)
+技术报告：[在线阅读](https://internrobotics.github.io/SCP-Lab/report/SCP-Lab-Technical-Report.pdf) · [下载 PDF](docs/report/SCP-Lab-Technical-Report.pdf?raw=true)
 
 SCP-Lab 是 [Science Context Protocol（SCP）](https://github.com/InternScience/scp) 面向自主实验室的扩展。科学智能体通过统一接口发现实验能力、提交任务，设施侧的后端负责控制设备或岛台执行操作，并返回执行状态与实验结果。智能体基于这些反馈优化后续实验方案。
 
