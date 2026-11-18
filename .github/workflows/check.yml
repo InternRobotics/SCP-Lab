@@ -12,6 +12,7 @@ jobs:
           python-version: '3.12'
       - run: pip install uv
       - run: uv sync --frozen --extra mcp --extra dev
+      - run: uv pip install --python .venv/bin/python -e './examples/adapters[bricklets]'
       - run: uv venv --python 3.12 .venv-sim
       - run: uv pip sync --python .venv-sim/bin/python requirements-simulation.lock
       - run: .venv/bin/ruff check src tests examples scripts

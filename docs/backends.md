@@ -21,7 +21,7 @@ Complete the [base installation](installation.md), then choose a starting point:
 | Publish a new interface for offline validation | [Add a model definition](#add-a-model-for-offline-validation) |
 | Connect a simulator, SDK, or laboratory service | [Develop an adapter](#develop-an-adapter-for-a-new-sdk-or-api) |
 
-For a working HTTP adapter example, see [Connect an Opentrons robot or a Bioyond Studio scheduler](http-instruments.md).
+For instrument configurations and acquisition examples, see [Connect laboratory instruments through SCP-Lab](http-instruments.md).
 
 ## Configure devices with an existing backend
 

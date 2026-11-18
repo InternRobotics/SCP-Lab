@@ -1,0 +1,10 @@
+{
+  "device_id": "openflexure_microscope",
+  "backend": "example_lab.measurements.microscope:create_backend",
+  "connection": {
+    "base_url": "http://microscope.example.invalid:5000"
+  },
+  "options": {
+    "output_dir": "/absolute/path/to/snapshots"
+  }
+}

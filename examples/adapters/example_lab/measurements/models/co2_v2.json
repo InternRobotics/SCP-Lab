@@ -1,0 +1,31 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "co2_v2",
+  "device_class": "co2_meter",
+  "display_name": "Tinkerforge CO2 Bricklet 2.0",
+  "capabilities": [
+    {
+      "capability_id": "co2_v2.read_co2",
+      "description": "Read the ambient carbon dioxide concentration.",
+      "completion_criteria": "The addressed module returns a concentration reading.",
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "co2_ppm": {
+            "type": "integer",
+            "x-scp-unit": "ppm",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "co2_ppm"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

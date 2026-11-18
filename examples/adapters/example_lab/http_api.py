@@ -24,10 +24,13 @@ class ServiceConnection(Contract):
             raise ValueError("Use the service origin, including the port if required")
         return url
 
-    def request(self, method, path, *, payload=None, headers=None):
+    def open_connection(self):
         url = self.base_url
         connection = HTTPSConnection if url.scheme == "https" else HTTPConnection
-        client = connection(url.host.strip("[]"), url.port, timeout=5)
+        return connection(url.host.strip("[]"), url.port, timeout=5)
+
+    def request(self, method, path, *, payload=None, headers=None):
+        client = self.open_connection()
         request_headers = {"Accept": "application/json", **(headers or {})}
         body = None
         if payload is not None:

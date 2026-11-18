@@ -1,0 +1,12 @@
+{
+  "device_id": "load_cell_v2",
+  "backend": "example_lab.measurements.bricklets:create_backend",
+  "connection": {
+    "host": "brickd.example.invalid",
+    "port": 4223,
+    "uid": "XYZ"
+  },
+  "options": {
+    "model": "load_cell_v2"
+  }
+}

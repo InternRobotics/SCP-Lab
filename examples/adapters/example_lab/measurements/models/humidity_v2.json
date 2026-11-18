@@ -1,0 +1,32 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "humidity_v2",
+  "device_class": "hygrometer",
+  "display_name": "Tinkerforge Humidity Bricklet 2.0",
+  "capabilities": [
+    {
+      "capability_id": "humidity_v2.read_humidity",
+      "description": "Read relative humidity.",
+      "completion_criteria": "The addressed module returns a relative humidity reading.",
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "relative_humidity_percent": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "x-scp-unit": "%RH"
+          }
+        },
+        "required": [
+          "relative_humidity_percent"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

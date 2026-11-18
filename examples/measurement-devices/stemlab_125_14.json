@@ -1,0 +1,9 @@
+{
+  "device_id": "stemlab_125_14",
+  "backend": "example_lab.measurements.scpi:create_stemlab",
+  "connection": {
+    "host": "stemlab.example.invalid",
+    "port": 5000,
+    "channel": "AIN0"
+  }
+}

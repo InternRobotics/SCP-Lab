@@ -1,8 +1,8 @@
-# 接入 Opentrons 工作站或奔曜 Bioyond Studio 调度器
+# 用 SCP-Lab 接入实验室仪器
 
 [English](../http-instruments.md) · [后端接入指南](backends.md)
 
-这两个可选适配器分别用于在现场辨认 OT-2 或 Flex，以及查询奔曜 Bioyond Studio 的调度状态。它们会调用配置中指定的 HTTP 服务。自动化测试已用本地 HTTP 测试服务核对请求和响应，真机验收待现场完成。
+通过 SCP-Lab 采集图像和测量值、在现场辨认 Opentrons 工作站，或查询奔曜调度器状态。每台实例都通过同一个 SCP-Lab MCP 接口发布可调用的操作。软件测试使用本地设备协议测试服务，真机验收待现场完成。
 
 | 设备或服务 | SCP-Lab 能力 | 调用成功的依据 |
 | --- | --- | --- |
@@ -10,7 +10,7 @@
 | Opentrons OT-2 / Flex | `opentrons.set_rail_lights` | 设置后，单独发起的读取返回目标状态。现场人员可目视确认。 |
 | 奔曜 Bioyond Studio LIMS | `bioyond.get_scheduler_status` | 服务返回成功，并给出调度器状态，例如 `Stop`。各台仪器另有自己的运行状态。 |
 
-照明控制使用 [Opentrons HTTP API](https://docs.opentrons.com/http/api_reference.html) 的版本 2。奔曜接口依据 Uni-Lab-OS 公开的[调度器客户端](https://github.com/deepmodeling/Uni-Lab-OS/blob/43923ec9473e2f6d33d3ca1ebca4bf4d507e06b2/unilabos/devices/workstation/bioyond_studio/bioyond_rpc.py#L1008-L1023)和 [JSON 请求实现](https://github.com/deepmodeling/Uni-Lab-OS/blob/43923ec9473e2f6d33d3ca1ebca4bf4d507e06b2/unilabos/device_comms/rpc.py)。请与现场 Bioyond Studio 管理人员核对 LIMS 接口版本。
+SCP-Lab 适配器调用 [Opentrons HTTP API](https://docs.opentrons.com/http/api_reference.html) v2 的照明接口和奔曜 Bioyond Studio LIMS 的状态查询接口。奔曜现场服务地址、接口版本和凭据需与设施方核对。
 
 ## 配置现场实例
 
@@ -44,14 +44,38 @@ mkdir -p lab-devices
 }
 ```
 
+## 测量与成像设备
+
+下表每一款都有独立的 SCP-Lab 实例配置和可执行的采集操作。把现场型号对应的配置文件复制到 `lab-devices/`，再替换示例连接信息。型号链接指向项目方或厂家的接口定义。
+
+| 型号及接口依据 | 实例配置 | SCP-Lab 能力 | 实际返回 |
+| --- | --- | --- | --- |
+| [OpenFlexure Microscope](https://openflexure.gitlab.io/openflexure-microscope-server/http/openapi.json) | [openflexure_microscope.json](../../examples/measurement-devices/openflexure_microscope.json) | `openflexure_microscope.snapshot` | JPEG 预览图、字节数、SHA-256 和服务器本地文件 URI |
+| [EEZ Bench Box 3 (BB3)](https://www.envox.eu/eez-bench-box-3/bb3-scpi-reference-manual/5-subsystem-command-reference/) | [eez_bb3.json](../../examples/measurement-devices/eez_bb3.json) | `eez_bb3.read_voltage` | 指定通道感测端的实测电压（V） |
+| [Red Pitaya STEMlab 125-14](https://redpitaya.readthedocs.io/en/latest/appsFeatures/examples/analog/ana-1-read_analog_inputs.html) | [stemlab_125_14.json](../../examples/measurement-devices/stemlab_125_14.json) | `stemlab_125_14.read_voltage` | AIN0–AIN3 中指定慢速模拟输入的电压（V） |
+| [Tinkerforge Load Cell Bricklet 2.0](https://github.com/Tinkerforge/generators/blob/master/configs/bricklet_load_cell_v2_config.py) | [load_cell_v2.json](../../examples/measurement-devices/load_cell_v2.json) | `load_cell_v2.read_weight` | 外接已校准称重传感器的读数（g） |
+| [Tinkerforge CO2 Bricklet 2.0](https://github.com/Tinkerforge/generators/blob/master/configs/bricklet_co2_v2_config.py) | [co2_v2.json](../../examples/measurement-devices/co2_v2.json) | `co2_v2.read_co2` | 环境 CO₂ 浓度（ppm） |
+| [Tinkerforge Color Bricklet 2.0](https://github.com/Tinkerforge/generators/blob/master/configs/bricklet_color_v2_config.py) | [color_v2.json](../../examples/measurement-devices/color_v2.json) | `color_v2.read_color` | 红、绿、蓝及无滤光四路光电计数 |
+| [Tinkerforge Humidity Bricklet 2.0](https://github.com/Tinkerforge/generators/blob/master/configs/bricklet_humidity_v2_config.py) | [humidity_v2.json](../../examples/measurement-devices/humidity_v2.json) | `humidity_v2.read_humidity` | 相对湿度（%RH） |
+
+- **显微镜。** 选择提供 `GET /camera/snapshot` 的 OpenFlexure 服务（v3 API），将 `output_dir` 设为 SCP-Lab 主机上已存在且可写的绝对路径。每次调用生成一张新图，可在主机上打开，与显微镜实时画面对照。
+- **电学测量。** 开启仪器的以太网 SCPI 服务。BB3 选择已安装且支持测压的通道；STEMlab 选择扩展接口上的慢速模拟输入。用仪表显示值或参考电压表核对回读结果。
+- **Bricklet 测量。** 这四款开源硬件模块经 Brick 主控和 Brick Daemon 或兼容网关连接。在 SCP-Lab 环境执行 `uv pip install --python .venv/bin/python -e './examples/adapters[bricklets]'` 安装可选驱动。填写网关地址、端口和 Brick Viewer 中各模块自己的 UID。示例适用于允许免鉴权绑定连接的网关。可用 Brick Viewer 核对读数，称重还需用已知质量核对外接传感器。
+
+例如，把以下参数提交给 SCP-Lab 即可读取已配置的称重模块，再用返回的运行 ID 查询结果。七个采集操作的 `arguments` 均为空对象。
+
+```json
+{"request":{"device_id":"load_cell_v2","capability_id":"load_cell_v2.read_weight","arguments":{}}}
+```
+
+## 现场验收
+
 检查实例是否注册，再生成 MCP 客户端配置。
 
 ```bash
 uv run --no-sync scp-lab check --devices-dir lab-devices
 uv run --no-sync scp-lab mcp-config --devices-dir lab-devices -o mcp-config.json
 ```
-
-## 现场验收
 
 让 MCP 客户端加载生成的配置，用实例 ID 调用 `describe_device`。这一步读取本地能力定义。要实际访问设备服务，用下面任一参数调用 `submit_execution`，再在同一个 MCP 会话中用返回的 `run_id` 调用 `get_execution`，直到任务结束。
 
