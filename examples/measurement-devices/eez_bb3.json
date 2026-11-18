@@ -1,0 +1,9 @@
+{
+  "device_id": "eez_bb3",
+  "backend": "example_lab.measurements.scpi:create_bb3",
+  "connection": {
+    "host": "bb3.example.invalid",
+    "port": 5025,
+    "channel": "CH1"
+  }
+}

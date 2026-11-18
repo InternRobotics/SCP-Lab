@@ -1,0 +1,40 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "openflexure_microscope",
+  "device_class": "microscope",
+  "display_name": "OpenFlexure Microscope",
+  "capabilities": [
+    {
+      "capability_id": "openflexure_microscope.snapshot",
+      "description": "Acquire a JPEG from the camera preview.",
+      "completion_criteria": "The camera returns a JPEG snapshot that the server stores with a byte count and SHA-256 digest.",
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "pattern": "^file://"
+          },
+          "byte_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "uri",
+          "byte_count",
+          "sha256"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

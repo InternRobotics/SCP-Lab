@@ -21,6 +21,8 @@ Complete the [base installation](installation.md), then choose a starting point:
 | Publish a new interface for offline validation | [Add a model definition](#add-a-model-for-offline-validation) |
 | Connect a simulator, SDK, or laboratory service | [Develop an adapter](#develop-an-adapter-for-a-new-sdk-or-api) |
 
+For instrument configurations and acquisition examples, see [Connect laboratory instruments through SCP-Lab](http-instruments.md).
+
 ## Configure devices with an existing backend
 
 This section uses a Synergy H1 plate reader to demonstrate configuring a device instance, querying its capabilities, and submitting a reading request. The example backend runs in `schema_validation` mode; it currently validates parameters and sample bindings and returns a validation report.

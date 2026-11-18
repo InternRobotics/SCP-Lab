@@ -21,6 +21,8 @@
 | 发布新接口，进行离线校验 | [添加型号定义](#add-a-model-for-offline-validation) |
 | 接入仿真器、SDK 或实验室服务 | [开发适配器](#develop-an-adapter-for-a-new-sdk-or-api) |
 
+各型号的实例配置、采集操作和验收方法见[用 SCP-Lab 接入实验室仪器](http-instruments.md)。
+
 <a id="configure-devices-with-an-existing-backend"></a>
 ## 配置使用已有后端的设备
 

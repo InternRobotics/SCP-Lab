@@ -1,0 +1,39 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "stemlab_125_14",
+  "device_class": "data_acquisition",
+  "display_name": "Red Pitaya STEMlab 125-14",
+  "capabilities": [
+    {
+      "capability_id": "stemlab_125_14.read_voltage",
+      "description": "Read a slow analog input.",
+      "completion_criteria": "The instrument returns a finite voltage for the requested input.",
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "enum": [
+              "AIN0",
+              "AIN1",
+              "AIN2",
+              "AIN3"
+            ]
+          },
+          "voltage_v": {
+            "type": "number",
+            "x-scp-unit": "V"
+          }
+        },
+        "required": [
+          "channel",
+          "voltage_v"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

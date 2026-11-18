@@ -8,5 +8,8 @@ version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = ["scp-lab>=0.1.0,<0.2"]
 
+[project.optional-dependencies]
+bricklets = ["tinkerforge>=2.1.32,<3"]
+
 [tool.hatch.build.targets.wheel]
 packages = ["example_lab"]

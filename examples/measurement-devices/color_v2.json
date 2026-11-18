@@ -1,0 +1,12 @@
+{
+  "device_id": "color_v2",
+  "backend": "example_lab.measurements.bricklets:create_backend",
+  "connection": {
+    "host": "brickd.example.invalid",
+    "port": 4223,
+    "uid": "XYZ"
+  },
+  "options": {
+    "model": "color_v2"
+  }
+}

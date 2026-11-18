@@ -1,0 +1,41 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "eez_bb3",
+  "device_class": "bench_power_supply",
+  "display_name": "EEZ Bench Box 3",
+  "capabilities": [
+    {
+      "capability_id": "eez_bb3.read_voltage",
+      "description": "Read voltage from the configured sense channel.",
+      "completion_criteria": "The instrument returns a finite voltage for the requested channel.",
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "enum": [
+              "CH1",
+              "CH2",
+              "CH3",
+              "CH4",
+              "CH5",
+              "CH6"
+            ]
+          },
+          "voltage_v": {
+            "type": "number",
+            "x-scp-unit": "V"
+          }
+        },
+        "required": [
+          "channel",
+          "voltage_v"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

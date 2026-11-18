@@ -1,0 +1,30 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "load_cell_v2",
+  "device_class": "weighing",
+  "display_name": "Tinkerforge Load Cell Bricklet 2.0",
+  "capabilities": [
+    {
+      "capability_id": "load_cell_v2.read_weight",
+      "description": "Read a connected, calibrated load cell.",
+      "completion_criteria": "The addressed module returns a weight reading.",
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "weight_g": {
+            "type": "integer",
+            "x-scp-unit": "g"
+          }
+        },
+        "required": [
+          "weight_g"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
