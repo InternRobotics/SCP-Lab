@@ -1,0 +1,21 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "bioyond_studio_scheduler",
+  "device_class": "workstation",
+  "display_name": "Bioyond Studio scheduler",
+  "capabilities": [
+    {
+      "capability_id": "bioyond.get_scheduler_status",
+      "description": "Read the scheduler state from the Bioyond Studio LIMS service.",
+      "input_schema": {"type": "object", "additionalProperties": false},
+      "result_schema": {
+        "type": "object",
+        "properties": {"schedulerStatus": {"type": "string", "minLength": 1}},
+        "required": ["schedulerStatus"],
+        "additionalProperties": false
+      },
+      "completion_criteria": "The LIMS service reports success and returns its scheduler status.",
+      "limitations": ["The value describes the scheduler as a whole. Individual devices can have different states."]
+    }
+  ]
+}

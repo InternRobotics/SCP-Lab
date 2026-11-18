@@ -1,0 +1,64 @@
+{
+  "schema_version": "scp-lab.device-model.v0.1",
+  "model_id": "opentrons_rail_lights",
+  "device_class": "liquid",
+  "display_name": "Opentrons OT-2 / Flex rail lights",
+  "capabilities": [
+    {
+      "capability_id": "opentrons.get_rail_lights",
+      "description": "Read the rail-light state reported by the robot.",
+      "input_schema": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "on": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "on"
+        ],
+        "additionalProperties": false
+      },
+      "completion_criteria": "The robot server returns a boolean light state.",
+      "limitations": [
+        "Readback is the robot controller’s report. Optical output requires external observation."
+      ]
+    },
+    {
+      "capability_id": "opentrons.set_rail_lights",
+      "description": "Switch the rail lights on or off and read back their state.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "on": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "on"
+        ],
+        "additionalProperties": false
+      },
+      "result_schema": {
+        "type": "object",
+        "properties": {
+          "on": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "on"
+        ],
+        "additionalProperties": false
+      },
+      "completion_criteria": "After the write, a separate read reports the requested state.",
+      "limitations": [
+        "Readback is the robot controller’s report. Optical output requires external observation."
+      ]
+    }
+  ]
+}

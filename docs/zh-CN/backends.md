@@ -21,6 +21,8 @@
 | 发布新接口，进行离线校验 | [添加型号定义](#add-a-model-for-offline-validation) |
 | 接入仿真器、SDK 或实验室服务 | [开发适配器](#develop-an-adapter-for-a-new-sdk-or-api) |
 
+可运行的 HTTP 适配器示例见[接入 Opentrons 工作站或奔曜 Bioyond Studio 调度器](http-instruments.md)。
+
 <a id="configure-devices-with-an-existing-backend"></a>
 ## 配置使用已有后端的设备
 
